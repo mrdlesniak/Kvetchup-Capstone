@@ -1,0 +1,24 @@
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'kvetchupapp/style.css' %}" />
+
+    <title>Kvetchup</title>
+</head>
+<body>
+    <header>
+        <h1>Kvetchup</h1>
+        <h3 class="subtitle">For when you need to up your kvetching game.</h3>
+    </header>
+    
+    {% block content %}
+    {% endblock %}
+    <div class="bottom">
+        <hr />
+        <footer>
+            (c) Dylan Lesniak
+        </footer>
+    </div>
+</body>
