@@ -2,6 +2,51 @@
 
 {% block content %}
 <div class="content">
-    {{message}}
+    Please choose your corporate elite to rage against. 
+    <div id="app">
+        <select v-model="siteId" name="" id="sites_drop_down">  
+            <option selected disabled value="Hello">Choose a Site</option>
+            {% for site in sites %}
+                <option value="{{site.id}}">{{site.name | title}}</option>
+            {% endfor %}
+        </select>
+        <button v-on:click="getSiteView">Button</button>
+
+            <div v-if="phone_number != ''">Phone Number: [[phone_number]]</div>
+            <input type="text" name="" id="" v-if="email">
+    </div>
+
+    <script type="text/javascript">
+        let app = new Vue({
+            el: '#app',
+            delimiters: ['[[', ']]'],
+            data: {
+                siteId: "",
+                name: "",
+                url: "",
+                email: "",
+                phone_number: ""
+            },
+            methods: {
+                getSiteView: function () {
+                    console.log(this.siteId)
+                    axios({
+                        method: 'get',
+                        url: '{% url "kvetchupapp:getSite" %}',
+                        params: {
+                            siteId: this.siteId
+                        }
+                    }).then(response => {
+                        let siteObj = response.data.site
+                        this.name = siteObj.name
+                        this.url = siteObj.url
+                        this.email = siteObj.email
+                        this.phone_number = siteObj.phone_number
+                    })
+                }
+            }
+        })
+
+    </script>
 </div>
 {% endblock %}

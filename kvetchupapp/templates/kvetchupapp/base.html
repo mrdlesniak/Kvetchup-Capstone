@@ -3,6 +3,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+
+    <!-- Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- Axios -->
+    <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'kvetchupapp/style.css' %}" />
 
     <title>Kvetchup</title>
@@ -10,9 +17,9 @@
 <body>
     <header>
         <h1>Kvetchup</h1>
-        <h3 class="subtitle">For when you need to up your kvetching game.</h3>
+        <span class="subtitle">For when you need to up your kvetching game.</span>
     </header>
-    
+    <hr>
     {% block content %}
     {% endblock %}
     <div class="bottom">
@@ -21,4 +28,6 @@
             (c) Dylan Lesniak
         </footer>
     </div>
+
+    
 </body>
