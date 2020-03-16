@@ -4,5 +4,6 @@ from . import views
 app_name = 'kvetchupapp'
 urlpatterns = [
     path('', views.index, name='index'),
-    path('getSite/', views.getSite, name='getSite')
+    path('getSite/', views.getSite, name='getSite'),
+    path('login/', views.login, name='login')
 ]

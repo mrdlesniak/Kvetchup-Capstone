@@ -17,7 +17,7 @@
             <select v-model="siteId" name="" id="sites_drop_down">  
                 <option selected disabled value="Hello">Choose a Site</option>
                 {% for site in sites %}
-                    <option value="{{site.id}}">{{site.name | title}}</option>
+                    <option value="{{site.id}}">{{site.name}}</option>
                 {% endfor %}
             </select>
             <button v-on:click="getSiteView">Rage</button>
@@ -25,10 +25,18 @@
         <div class="input_section">
             <div v-if="name">Name: &ensp; [[name]]</div>
             <div v-if="url">Url: &ensp; [[url]]</div>
-            <div v-if="email">Email Address: &ensp; [[email]]</div>
+            <div class="email" v-if="name">
+            <div v-if="email">Email Address: &ensp; [[email]]</div> 
+            <div v-if="!email">No listed email address. Please visit their website: &ensp; [[customer_support_site]]</div> 
+            </div>
             <div v-if="phone_number != ''">Phone Number: &ensp; [[phone_number]]</div>
-            <input type="text" name="" id="" v-if="email">
-            <button type="submit" v-if="email">Send Email</button>
+            <div class="send_email" v-if="email">
+                <input type="text" name="" id="" >
+                <button type="submit"  v-on:click="notLoggedIn">Send Email</button>
+            </div>
+            {% if user.is_anonymous  %}
+                <span class="login_notice" v-if="show_logged_in">Please <a class="inline_link" href="{% url 'users:login' %}">log in</a>  to send emails.</span>
+            {% endif %}
         </div>    
     
 

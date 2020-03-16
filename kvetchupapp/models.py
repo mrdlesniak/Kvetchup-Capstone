@@ -6,7 +6,8 @@ from django.utils import timezone
 class Site(models.Model):
     name = models.CharField(max_length=200)
     url = models.URLField(max_length=200)
-    email = models.EmailField(max_length=254)
+    email = models.EmailField(max_length=254, default="", blank=True)
+    customer_support_page = models.URLField(max_length=200, default="", blank=True)
     phone_number = models.CharField(max_length=200, default="xxx-xxx-xxxx")
     #each site can have many complaints from many users. 
     #users can have many complaints to many sites.

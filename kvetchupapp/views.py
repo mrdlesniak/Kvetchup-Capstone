@@ -8,8 +8,10 @@ import random
 # Create your views here.
 def index(request):
     sites = models.Site.objects.order_by('name')
+    message = request.GET.get('message', False)
     context = {
         "sites": sites,
+        "message": message,
     }
     return render(request, 'kvetchupapp/index.html', context)  
 
@@ -29,3 +31,11 @@ def getSite(request):
         }
     
     return JsonResponse({"site":data})
+
+@login_required
+def login(request):
+    sites = models.Site.objects.order_by('name')
+    context = {
+        "sites": sites,
+    }
+    return render(request, 'kvetchupapp/index.html', context) 

@@ -25,7 +25,7 @@ def register_user(request):
     user = User.objects.create_user(username, email, password)
     login(request, user)
 
-    return HttpResponseRedirect(reverse('books:index'))
+    return HttpResponseRedirect(reverse('kvetchupapp:index'))
 
 
 def login_page(request):
@@ -50,7 +50,7 @@ def login_user(request):
         login(request, user)
         if next != '':
             return HttpResponseRedirect(next)
-        return HttpResponseRedirect(reverse('books:index'))
+        return HttpResponseRedirect(reverse('kvetchupapp:index'))
     if next == '':
         return HttpResponseRedirect(reverse('users:login') + '?message=failure')
     return HttpResponseRedirect(reverse('users:login') + '?message=failure&next='+next)
@@ -58,7 +58,7 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return HttpResponseRedirect(reverse('users:login') + '?message=loggedout')
+    return HttpResponseRedirect(reverse('kvetchupapp:index') + '?message=True')
 
 @login_required
 def home(request):

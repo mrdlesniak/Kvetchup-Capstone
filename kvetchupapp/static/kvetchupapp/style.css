@@ -33,6 +33,45 @@ header{
   transform: translateY(2px);
 }
 
+.login_logout{
+    float: right;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-self: right;
+}
+
+.modal_bg{
+    z-index: 4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 110vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, .5);
+    text-decoration: none;
+}
+
+.modal{
+    z-index: 5;
+    position: relative;
+    width: 33%;
+    background-color: white;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #181880;
+    border: 1px solid #FFD830;
+}
+
+.modal_text{
+    color: #FFD830;
+    font-family: 'Bebas Neue', cursive;
+}
+
 hr{
     border-top: 1px solid #FFD830;
 }
@@ -77,10 +116,24 @@ h1{
     background-color: #181880;
 }
 
+.inline_link{
+    background-color: inherit;
+    color: #FFD830;
+    font-family: 'Bebas Neue', cursive;
+}
+
+.inline_link:hover{
+    color: #E6C32C;
+}
+
+.inline_link:active{
+    color: #806D18;
+}
+
 .fade-enter-active, .fade-leave-active {
   transition: all .5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.fade-enter, .fade-leave-to  {
   transition: all .5s;
   opacity: 0;
   height: 0;
@@ -109,6 +162,9 @@ body{
     padding: 5px;
 }
 
+.login_notice {
+    color: red;
+}
 
 .bottom{
     position: fixed;
@@ -121,6 +177,7 @@ footer{
     padding: 20px;
     background-color: #1114B3;
     color: #FFD830;
+    z-index: 0;
 }
 
 
@@ -169,7 +226,7 @@ button:active {
     header{padding: 20px;}
     h1{font-size:6vw;}
     .subtitle{font-size:1.5vw;}
-    body{font-size: 30px}
-    .instruction{font-size: 30px}
-    footer{font-size:20px}
+    body{font-size: 30px;}
+    .instruction{font-size: 30px;}
+    footer{font-size:20px;}
 }

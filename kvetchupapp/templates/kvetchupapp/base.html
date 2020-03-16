@@ -4,6 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <!-- icon -->
+    <link rel="shortcut icon" href="{% static 'kvetchupapp/icons/favicon.ico' %}" type="image/x-icon">
 
     <!-- Vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -25,6 +27,21 @@
                 <h1>Kvetchup</h1>
                 <span class="subtitle">For when you need to up your kvetching game.</span>
             </div>
+            <div class="login_logout">
+                {% if user.is_authenticated %}
+                    <a class="inline_link" href="{% url 'users:logout' %}">Logout</a>
+                {% else %}
+                    <a class="inline_link" href="{% url 'users:login' %}">Login</a>
+                    {% if message == 'True' %}
+                        <a class="modal_bg" href="{% url 'kvetchupapp:index' %}">
+                            <div class="modal">
+                                <div class="modal_text">You Have Successfully</div>
+                                <div class="modal_text">Logged Out</div>
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </div>
         </header>
         <hr>
         {% block content %}
@@ -35,7 +52,7 @@
                 (c) Dylan Lesniak
             </footer>
         </div>
-    </div>
+    </body>
     <script type="text/javascript">
         let app = new Vue({
             el: '#app',
@@ -45,12 +62,20 @@
                 name: "",
                 url: "",
                 email: "",
+                customer_support_site: "",
                 phone_number: "",
-                show: false,
                 max_height: "0px",
+                show: false,
+                logged_in: false,
+                show_logged_in: false,
+                modal: false,
             },
             methods: {
                 getSiteView: function () {
+                    console.log(this.siteId)
+                    if (this.siteId == "") {
+                        return
+                    }
                     axios({
                         method: 'get',
                         url: '{% url "kvetchupapp:getSite" %}',
@@ -66,7 +91,6 @@
                     })
                 },
                 showHide: function () {
-                    console.log("showHide")
                     if (this.show) {
                         this.max_height = "0px"
                         this.show = false
@@ -74,6 +98,17 @@
                         this.max_height = "null"
                         this.show = true
                     }
+                },
+                notLoggedIn: function () {
+                    if (this.logged_in) {
+                        return
+                    } else {
+                        this.show_logged_in = true
+                    }
+                    console.log("notLoggedIn")
+                },
+                showModal: function() {
+                    this.modal = true
                 }
             }
         })
