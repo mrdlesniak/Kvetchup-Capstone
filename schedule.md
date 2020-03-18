@@ -32,4 +32,10 @@
     made email and cs_site blank-able, in case none provided 
     <!-- Create Additional Info field for URL and info not shown. Can minimize display  -->
     <!-- Create a url shortener for URLs over a certain length, or a hyperlink system -->
+03/17/20 - 
+    <!-- display username at top somewhere when logged in -->
+    populated database
+03/18/20 - 
+    set up email system 
+    Used django user.is_authenticated to automate if the text and submit objects appear. If anonymous, please login appears, no longer populates with button press
     

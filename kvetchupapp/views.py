@@ -1,5 +1,7 @@
 from django.shortcuts import render, reverse
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 from . import models
 import json
@@ -39,3 +41,8 @@ def login(request):
         "sites": sites,
     }
     return render(request, 'kvetchupapp/index.html', context) 
+
+@login_required
+def send(request):
+    send_mail('Test Email', 'This is my test email', 'info.kvetchup@gmail.com', ['mrdlesniak@gmail.com'], fail_silently=False)
+    return HttpResponseRedirect(reverse('kvetchupapp:index'))
