@@ -38,4 +38,22 @@
 03/18/20 - 
     set up email system 
     Used django user.is_authenticated to automate if the text and submit objects appear. If anonymous, please login appears, no longer populates with button press
-    
+    successfully set up beginnings of email system
+        can send email from only one address to one address
+    tomorrow, create modal (identical to 'successfully logged out') for 'email sent'
+03/19/20 - 
+    pivot from user email system. Emails will still be sent to verify users, but will not send from user email address for security reasons
+    changed form to a link that reads "Send Email" which opens up client's email 
+    fixed css issues and improved mobile styling
+    Created more modern buttons, including a new button to display additional information
+        Minimizes site. Only a few lines will be displayed by default
+        Will begin work on gathering ratings from yelp and such 
+03/20/20 -
+    Begin work on a ratings page with overall rating will reviews underneath it
+    Edited models. Each company will have a rating, which is itself a model
+        Each rating has a corresponding view which has a user, a review (blank-able ), and a date
+03/23/20 - 
+    Sent reviews models through View to my Vue (sorry for the homonyms)
+    Reformatted reviews to contain users instead of user_id and formatted datetime to be legible
+03/24/20 - 
+    Allow users to submit reviews

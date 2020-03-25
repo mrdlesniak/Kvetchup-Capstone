@@ -2,8 +2,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- fonts -->
     <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
     <!-- icon -->
     <link rel="shortcut icon" href="{% static 'kvetchupapp/icons/favicon.ico' %}" type="image/x-icon">
 
@@ -44,74 +46,91 @@
             </div>
         </header>
         <hr>
+        <transition name="fade">
+            <div class="menu" v-show="show">
+                <a class="tablinks" href="{% url 'kvetchupapp:index' %}">Home</a>
+                <a class="tablinks" href="">Profile</a>
+                <a class="tablinks" href="{% url 'kvetchupapp:ratings' %}">Ratings</a>
+                <a class="tablinks" href="">About</a>
+            </div>
+        </transition>
         {% block content %}
         {% endblock %}
         <div class="bottom">
             <hr />
             <footer>
-                (c) Dylan Lesniak
+                (c) Dylan Lesniak 2020
             </footer>
         </div>
-    </body>
-    <script type="text/javascript">
-        let app = new Vue({
-            el: '#app',
-            delimiters: ['[[', ']]'],
-            data: {
-                siteId: "",
-                name: "",
-                url: "",
-                email: "",
-                customer_support_site: "",
-                phone_number: "",
-                max_height: "0px",
-                show: false,
-                logged_in: false,
-                show_logged_in: false,
-                modal: false,
-            },
-            methods: {
-                getSiteView: function () {
-                    console.log(this.siteId)
-                    if (this.siteId == "") {
-                        return
-                    }
-                    axios({
-                        method: 'get',
-                        url: '{% url "kvetchupapp:getSite" %}',
-                        params: {
-                            siteId: this.siteId
+        <script type="text/javascript">
+            let app = new Vue({
+                el: '#app',
+                delimiters: ['[[', ']]'],
+                data: {
+                    siteId: "",
+                    name: "",
+                    url: "",
+                    email: "",
+                    customer_support_site: "",
+                    phone_number: "",
+                    reviews: "",
+                    max_height: "0px",
+                    show: false,
+                    hide: 'Show',
+                    logged_in: false,
+                    show_logged_in: false,
+                    modal: false,
+                },
+                methods: {
+                    getSiteView: function () {
+                        console.log(this.siteId)
+                        if (this.siteId == "") {
+                            return
                         }
-                    }).then(response => {
-                        let siteObj = response.data.site
-                        this.name = siteObj.name
-                        this.url = siteObj.url
-                        this.email = siteObj.email
-                        this.phone_number = siteObj.phone_number
-                    })
-                },
-                showHide: function () {
-                    if (this.show) {
-                        this.max_height = "0px"
-                        this.show = false
-                    } else {
-                        this.max_height = "null"
-                        this.show = true
+                        axios({
+                            method: 'get',
+                            url: '{% url "kvetchupapp:getSite" %}',
+                            params: {
+                                siteId: this.siteId
+                            }
+                        }).then(response => {
+                            let siteObj = response.data.site
+                            this.name = siteObj.name
+                            this.url = siteObj.url
+                            this.email = siteObj.email
+                            this.phone_number = siteObj.phone_number
+                            this.reviews = siteObj.reviews
+                        })
+                    },
+                    showHide: function () {
+                        if (this.show) {
+                            this.max_height = "0px"
+                            this.show = false
+                        } else {
+                            this.max_height = "null"
+                            this.show = true
+                        }
+                    },
+                    notLoggedIn: function () {
+                        if (this.logged_in) {
+                            return
+                        } else {
+                            this.show_logged_in = true
+                        }
+                        console.log("notLoggedIn")
+                    },
+                    showModal: function () {
+                        this.modal = true
+                    },
+                    displayAdditional: function () {
+                        if (this.hide == 'Hide') {
+                            this.hide = 'Show'
+                        } else {
+                            this.hide = 'Hide'
+                        }
                     }
-                },
-                notLoggedIn: function () {
-                    if (this.logged_in) {
-                        return
-                    } else {
-                        this.show_logged_in = true
-                    }
-                    console.log("notLoggedIn")
-                },
-                showModal: function() {
-                    this.modal = true
                 }
-            }
-        })
-
-    </script>
+            })
+        </script>
+    </div>
 </body>
