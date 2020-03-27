@@ -19,43 +19,45 @@
 </head>
 <body>
     <div id="app">
-        <header>
-            <div class="hamburger_icon" v-on:click="showHide">
-                <div class="ham_line"></div>
-                <div class="ham_line"></div>
-                <div class="ham_line"></div>
-            </div>
-            <div class="title">
-                <h1>Kvetchup</h1>
-                <span class="subtitle">For when you need to up your kvetching game.</span>
-            </div>
-            <div class="login_logout">
-                {% if user.is_authenticated %}
-                    <a class="inline_link" href="{% url 'users:logout' %}">Logout</a>
-                {% else %}
-                    <a class="inline_link" href="{% url 'users:login' %}">Login</a>
-                    {% if message == 'True' %}
-                        <a class="modal_bg" href="{% url 'kvetchupapp:index' %}">
-                            <div class="modal">
-                                <div class="modal_text">You Have Successfully</div>
-                                <div class="modal_text">Logged Out</div>
-                            </div>
-                        </a>
+        <div id="header_body">
+            <header>
+                <div class="hamburger_icon" v-on:click="showHide">
+                    <div class="ham_line"></div>
+                    <div class="ham_line"></div>
+                    <div class="ham_line"></div>
+                </div>
+                <div class="title">
+                    <h1>Kvetchup</h1>
+                    <span class="subtitle">For when you need to up your kvetching game.</span>
+                </div>
+                <div class="login_logout">
+                    {% if user.is_authenticated %}
+                        <a class="inline_link" href="{% url 'users:logout' %}">Logout</a>
+                    {% else %}
+                        <a class="inline_link" href="{% url 'users:login' %}">Login</a>
+                        {% if message == 'True' %}
+                            <a class="modal_bg" href="{% url 'kvetchupapp:index' %}">
+                                <div class="modal">
+                                    <div class="modal_text">You Have Successfully</div>
+                                    <div class="modal_text">Logged Out</div>
+                                </div>
+                            </a>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
-            </div>
-        </header>
-        <hr>
-        <transition name="fade">
-            <div class="menu" v-show="show">
-                <a class="tablinks" href="{% url 'kvetchupapp:index' %}">Home</a>
-                <a class="tablinks" href="">Profile</a>
-                <a class="tablinks" href="{% url 'kvetchupapp:ratings' %}">Reviews</a>
-                <a class="tablinks" href="">About</a>
-            </div>
-        </transition>
-        {% block content %}
-        {% endblock %}
+                </div>
+            </header>
+            <hr>
+            <transition name="fade">
+                <div class="menu" v-show="show">
+                    <a class="tablinks" href="{% url 'kvetchupapp:index' %}">Home</a>
+                    <a class="tablinks" href="{% url 'kvetchupapp:profile' %}">Profile</a>
+                    <a class="tablinks" href="{% url 'kvetchupapp:ratings' %}">Reviews</a>
+                    <a class="tablinks" href="">About</a>
+                </div>
+            </transition>
+            {% block content %}
+            {% endblock %}
+        </div>
         <div class="bottom">
             <hr />
             <footer>
@@ -117,7 +119,7 @@
                         } else {
                             this.show_logged_in = true
                         }
-                        console.log("notLoggedIn")
+                        
                     },
                     showModal: function () {
                         this.modal = true

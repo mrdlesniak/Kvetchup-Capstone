@@ -1,0 +1,31 @@
+{% extends 'kvetchupapp/base.html' %}
+
+{% block content %}
+<div class="content">
+    <h2>Profile</h2>
+    <div class="welcome">Welcome, {{user.username | title}}</div>
+    <br>
+    <div class="profile_fields">
+        <form action="">
+            {% csrf_token %}
+            <div class="profile_picture">
+
+            </div>
+            <div class="profile_username">
+                Username: &ensp; {{user.username | title}}
+            </div>
+            <div class="first_name">
+                First Name: &ensp; {{user.first_name}}
+            </div>
+            <div>
+                Last Name: &ensp; {{user.last_name}}
+            </div>
+            <div>
+                Email: &ensp; {{user.email}}
+            </div>
+            <button >Edit</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

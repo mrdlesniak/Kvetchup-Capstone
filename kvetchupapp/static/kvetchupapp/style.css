@@ -154,7 +154,10 @@ body{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    margin-bottom: 70px;
+}
+
+#header_body{
+    min-height: 80vh
 }
 
 .content{
@@ -194,7 +197,7 @@ input[type=text] {
 }
 
 .bottom{
-    position: fixed;
+    position: relative;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -276,6 +279,10 @@ button:active {
     padding: 5px 5px 5px 0;
     margin: 0 5px;
     font-size: 15px;
+}
+
+.welcome{
+    font-family: 'Berkshire Swash', cursive;
 }
 
 @media only screen and (min-width: 768px) {

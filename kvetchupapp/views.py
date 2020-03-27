@@ -82,3 +82,7 @@ def new_review(request):
     print()
     
     return HttpResponseRedirect(reverse('kvetchupapp:ratings') + '?message=True')
+
+@login_required
+def profile(request):
+    return render(request, 'kvetchupapp/profile.html')

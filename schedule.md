@@ -65,3 +65,4 @@
     users can now add reviews for companies
     reviews connected to site and user
     modal appears to notify user of successful submission
+    reviews ordered by date, most recent first

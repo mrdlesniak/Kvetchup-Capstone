@@ -29,5 +29,8 @@ class Review(models.Model):
     site = models.ForeignKey(Site, on_delete=models.PROTECT, null=True, blank=True, related_name="reviews") 
     review_date = models.DateTimeField(default=datetime.now, blank=True)
 
+    class Meta:
+        ordering = ['-review_date']
+
     def __str__(self):
         return self.review
