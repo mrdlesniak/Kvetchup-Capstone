@@ -19,7 +19,6 @@ def index(request):
 
 def getSite(request): 
     siteId = request.GET.get("siteId", "error")
-    print(request.GET)
     if siteId == "error":
         return JsonResponse({"site": "NO SITE FOUND"})
     site = models.Site.objects.get(id=siteId)
@@ -40,15 +39,14 @@ def getSite(request):
         "phone_number": site.phone_number,
         "reviews":  queryset_reviews,
         }
-
-    print(data)
-    print()
     return JsonResponse({"site":data})
 
 def ratings(request):
     sites = models.Site.objects.order_by('name')
+    message = request.GET.get('message', False)
     context = {
         "sites": sites,
+        "message": message,
     }
     return render(request, 'kvetchupapp/ratings.html', context) 
 
@@ -60,8 +58,27 @@ def login(request):
     }
     return render(request, 'kvetchupapp/index.html', context) 
 
-@login_required
+#this method will be in charge of sending the confirmation email to verify accounts. 
 def send(request):
-    send_mail('Kayla!!', 'I sent this through my app!', 'mrdlesniak@gmail.com', ['mrdlesniak@gmail.com'], fail_silently=False)
+    # send_mail(, 'mrdlesniak@gmail.com', ['mrdlesniak@gmail.com'], fail_silently=False)
     return HttpResponseRedirect(reverse('kvetchupapp:index'))
 
+@login_required
+def new_review(request):
+    '''
+    review = models.TextField(blank=True)
+    user = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True, related_name="reviews")
+    site = models.ForeignKey(Site, on_delete=models.PROTECT, null=True, blank=True, related_name="reviews") 
+    review_date = models.DateTimeField(default=datetime.now, blank=True)
+    '''
+    review_text = request.POST['review_text']
+    user = request.user
+    site_id = request.POST['siteId']
+    site = models.Site.objects.get(id=site_id)
+    review = models.Review(review=review_text, user=user, site=site )
+    review.save()
+    print(review)
+    print()
+    print()
+    
+    return HttpResponseRedirect(reverse('kvetchupapp:ratings') + '?message=True')

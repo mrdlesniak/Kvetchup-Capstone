@@ -56,4 +56,12 @@
     Sent reviews models through View to my Vue (sorry for the homonyms)
     Reformatted reviews to contain users instead of user_id and formatted datetime to be legible
 03/24/20 - 
-    Allow users to submit reviews
+    Class lectures and css
+03/25/20 - 
+    Fixed overlapping footer issue (margin-bottom was the trick)
+    Create custom user system 
+        Involed deleted all previous migrations and clearing my database. Previous data entries were copy and pasted
+03/26/20 - 
+    users can now add reviews for companies
+    reviews connected to site and user
+    modal appears to notify user of successful submission

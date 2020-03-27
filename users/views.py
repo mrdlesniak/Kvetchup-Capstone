@@ -1,8 +1,9 @@
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.decorators import login_required
+from kvetchupapp import models
 
 import requests
 
