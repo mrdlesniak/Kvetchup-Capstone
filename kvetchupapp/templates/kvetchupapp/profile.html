@@ -2,29 +2,61 @@
 
 {% block content %}
 <div class="content">
+    {% if message == 'True' %}
+    <a class="modal_bg" href="{% url 'kvetchupapp:ratings' %}">
+        <div class="modal">
+            <div class="modal_text">Profile Edited Successfully</div>
+        </div>
+    </a>
+    {% endif %}
+
     <h2>Profile</h2>
     <div class="welcome">Welcome, {{user.username | title}}</div>
-    <br>
+
     <div class="profile_fields">
-        <form action="">
+        <form method="post" action="{% url 'kvetchupapp:edit' %}" class="profile_form">
             {% csrf_token %}
             <div class="profile_picture">
 
             </div>
             <div class="profile_username">
-                Username: &ensp; {{user.username | title}}
+                <span v-if="edit">Username: &ensp; {{user.username | title}}</span>
+                <span v-if="!edit">Username: &ensp; {{user.username | title}}<input type="text" name="user_name" id="" placeholder="New Username..."></span>
             </div>
             <div class="first_name">
-                First Name: &ensp; {{user.first_name}}
+                <span v-if="edit">First Name: &ensp; {{user.first_name}}</span>
+                <span v-if="!edit">First Name: &ensp; {{user.first_name}}<input type="text" name="first_name" id="" placeholder="New First Name..."></span>
             </div>
             <div>
-                Last Name: &ensp; {{user.last_name}}
+                <span v-if="edit">Last Name: &ensp; {{user.last_name}}</span>
+                <span v-if="!edit">Last Name: &ensp; {{user.last_name}}<input type="text" name="last_name" id="" placeholder="New Last Name..."></span>
             </div>
             <div>
-                Email: &ensp; {{user.email}}
+                <span v-if="edit">Email: &ensp; {{user.email}}</span>
+                <span v-if="!edit">Email: &ensp; {{user.email}}<input type="text" name="email" id="" placeholder="New Email Address..."></span>
             </div>
-            <button >Edit</button>
+
+            <div v-if="isSure" class="modal_bg" v-on:click="submitModal">
+                <div class="modal">
+                    <div class="modal_text">
+                        Submit?
+                        <div class="modal_buttons">
+                            <button type="submit">Submit</button>
+                            <button id="cancel_edit" v-if="!edit" v-on:click="editFunction">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </form>
+        <div class="edit_buttons">
+            <button v-if="edit" v-on:click="editFunction">Edit</button>
+
+            <!-- <button v-if="edit" v-on:click="editFunction">Edit</button> -->
+
+            <button v-if="!edit" type="submit" v-on:click="submitModal">Submit</button>
+            <button id="cancel_edit" v-if="!edit" v-on:click="editFunction">Cancel</button>
+        </div>
     </div>
 </div>
 

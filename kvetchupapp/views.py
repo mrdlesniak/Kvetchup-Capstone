@@ -65,12 +65,6 @@ def send(request):
 
 @login_required
 def new_review(request):
-    '''
-    review = models.TextField(blank=True)
-    user = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True, related_name="reviews")
-    site = models.ForeignKey(Site, on_delete=models.PROTECT, null=True, blank=True, related_name="reviews") 
-    review_date = models.DateTimeField(default=datetime.now, blank=True)
-    '''
     review_text = request.POST['review_text']
     user = request.user
     site_id = request.POST['siteId']
@@ -86,3 +80,22 @@ def new_review(request):
 @login_required
 def profile(request):
     return render(request, 'kvetchupapp/profile.html')
+
+@login_required
+def edit(request):
+    #get user 
+    #set each value of the user instance to the new values from the edit. 
+    #save
+    user = request.user
+    username = request.POST['user_name']
+    first_name = request.POST['first_name']
+    last_name = request.POST['last_name']
+    email = request.POST['email']
+
+    user.username = username
+    user.first_name = first_name
+    user.last_name = last_name
+    user.email = email
+    user.save()
+
+    return HttpResponseRedirect(reverse('kvetchupapp:profile') + '?message=True') 

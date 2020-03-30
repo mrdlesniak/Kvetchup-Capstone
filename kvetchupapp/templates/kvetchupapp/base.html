@@ -82,6 +82,8 @@
                     logged_in: false,
                     show_logged_in: false,
                     modal: false,
+                    edit: true,
+                    isSure: false,
                 },
                 methods: {
                     getSiteView: function () {
@@ -129,6 +131,20 @@
                             this.hide = 'Show'
                         } else {
                             this.hide = 'Hide'
+                        }
+                    },
+                    editFunction: function () {
+                        if (this.edit){
+                            this.edit = false
+                        } else {
+                            this.edit = true
+                        }
+                    },
+                    submitModal: function () {
+                        if (this.isSure) {
+                            this.isSure = false
+                        } else {
+                            this.isSure = true
                         }
                     }
                 }

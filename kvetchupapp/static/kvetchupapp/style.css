@@ -283,7 +283,15 @@ button:active {
 
 .welcome{
     font-family: 'Berkshire Swash', cursive;
+    padding: 0 0 20px;
 }
+
+.profile_fields{
+    border: 2px solid #FFD830;
+    background-color: #181880;
+    padding: 5px;
+}
+
 
 @media only screen and (min-width: 768px) {
     .ham_line {
@@ -314,4 +322,14 @@ button:active {
     .instruction{font-size: 30px;}
     footer{font-size:20px;}
     .date{font-size: 25px;}
+    .edit_buttons{
+        display: flex;
+        flex-direction: row;
+    }
+    .modal_buttons{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    #cancel_edit{margin: 10px 0 10px 10px;}
 }

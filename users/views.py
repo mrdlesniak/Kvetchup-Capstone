@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.decorators import login_required
 from kvetchupapp import models
+from users.models import User
 
 import requests
 
