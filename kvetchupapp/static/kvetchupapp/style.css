@@ -157,7 +157,7 @@ body{
 }
 
 #header_body{
-    min-height: 80vh
+    min-height: 85vh;
 }
 
 .content{
@@ -178,7 +178,7 @@ body{
     margin: 10px 0 0 0;
 }
 
-input[type=text] {
+input {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -186,6 +186,7 @@ input[type=text] {
   border: 2px solid #FFD830;
   background-color: inherit;
   color: #FFD830;
+  font-size: 15px;
 }
 
 ::placeholder {
@@ -202,15 +203,16 @@ input[type=text] {
     bottom: 0;
     width: 100%;
     padding: 20px 0 0 0;
+    display: flex;
+    flex-direction: column;
     flex: 0 0 50px;
-    /* margin-top: auto; */
 }
 
 footer{
-    padding: 20px;
+    padding: 35px 0 0 20px;
     background-color: #1114B3;
     color: #FFD830;
-    
+    justify-content: center;
 }
 
 
@@ -292,6 +294,15 @@ button:active {
     padding: 5px;
 }
 
+.requirements{
+    font-size: 15px;
+    padding: 0 0 10px 10px;
+    font-style: italic;
+}
+
+.error{
+    color: red;
+}
 
 @media only screen and (min-width: 768px) {
     .ham_line {
@@ -329,7 +340,9 @@ button:active {
     .modal_buttons{
         display: flex;
         flex-direction: row;
-        align-items: center;
+        justify-content: center;
     }
     #cancel_edit{margin: 10px 0 10px 10px;}
+
+    input {font-size: 20px;}
 }

@@ -3,16 +3,25 @@
 {% block content %}
 <div class="content">
     {% if message == 'True' %}
-    <a class="modal_bg" href="{% url 'kvetchupapp:ratings' %}">
+    <a class="modal_bg" href="{% url 'kvetchupapp:profile' %}">
         <div class="modal">
             <div class="modal_text">Profile Edited Successfully</div>
         </div>
     </a>
     {% endif %}
 
+    {% if message == 'exists' %}
+    <a class="modal_bg" href="{% url 'kvetchupapp:profile' %}">
+        <div class="modal">
+            <div class="modal_text">Username Already Exists</div>
+            <div class="modal_text">Please Try Again</div>
+        </div>
+    </a>
+    {% endif %}
+
     <h2>Profile</h2>
     <div class="welcome">Welcome, {{user.username | title}}</div>
-
+    <div v-if="!edit" class="requirements">Do not include spaces</div>
     <div class="profile_fields">
         <form method="post" action="{% url 'kvetchupapp:edit' %}" class="profile_form">
             {% csrf_token %}
@@ -21,41 +30,49 @@
             </div>
             <div class="profile_username">
                 <span v-if="edit">Username: &ensp; {{user.username | title}}</span>
-                <span v-if="!edit">Username: &ensp; {{user.username | title}}<input type="text" name="user_name" id="" placeholder="New Username..."></span>
+                <span v-bind:class="{error: usrnmError}" v-if="!edit">Username: &ensp; {{user.username | title}}<input type="text" name="user_name" v-model="userName"></span>
+                <div v-if="!edit" class="requirements">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</div>
             </div>
             <div class="first_name">
                 <span v-if="edit">First Name: &ensp; {{user.first_name}}</span>
-                <span v-if="!edit">First Name: &ensp; {{user.first_name}}<input type="text" name="first_name" id="" placeholder="New First Name..."></span>
+                <span v-bind:class="{error: frstnmError}" v-if="!edit">First Name: &ensp; {{user.first_name}}<input type="text" name="first_name" v-model="firstName"></span>
             </div>
             <div>
                 <span v-if="edit">Last Name: &ensp; {{user.last_name}}</span>
-                <span v-if="!edit">Last Name: &ensp; {{user.last_name}}<input type="text" name="last_name" id="" placeholder="New Last Name..."></span>
+                <span v-bind:class="{error: lstnmError}" v-if="!edit">Last Name: &ensp; {{user.last_name}}<input type="text" name="last_name" id="" v-model="lastName"></span>
             </div>
             <div>
                 <span v-if="edit">Email: &ensp; {{user.email}}</span>
-                <span v-if="!edit">Email: &ensp; {{user.email}}<input type="text" name="email" id="" placeholder="New Email Address..."></span>
+                <span v-if="!edit">Email: &ensp; {{user.email}}</span>
             </div>
-
-            <div v-if="isSure" class="modal_bg" v-on:click="submitModal">
+            
+            <div v-show="isSure" class="modal_bg" v-on:click="resetisSure">
                 <div class="modal">
                     <div class="modal_text">
-                        Submit?
+                        <p>Submit?</p>
                         <div class="modal_buttons">
                             <button type="submit">Submit</button>
-                            <button id="cancel_edit" v-if="!edit" v-on:click="editFunction">Cancel</button>
+                            </form>
+                            <button id="cancel_edit" type="button">Cancel</button>
                         </div>
                     </div>
                 </div>
             </div>
-
-        </form>
+            
         <div class="edit_buttons">
             <button v-if="edit" v-on:click="editFunction">Edit</button>
 
-            <!-- <button v-if="edit" v-on:click="editFunction">Edit</button> -->
 
-            <button v-if="!edit" type="submit" v-on:click="submitModal">Submit</button>
+            <button v-if="!edit" v-on:click="checkValues">Submit</button>
             <button id="cancel_edit" v-if="!edit" v-on:click="editFunction">Cancel</button>
+        </div>
+
+        <div v-show="!isValid" class="modal_bg" v-on:click="resetValid">
+            <div class="modal">
+                <div class="modal_text">
+                    <p>Invalid Entry</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

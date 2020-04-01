@@ -64,91 +64,151 @@
                 (c) Dylan Lesniak 2020
             </footer>
         </div>
-        <script type="text/javascript">
-            let app = new Vue({
-                el: '#app',
-                delimiters: ['[[', ']]'],
-                data: {
-                    siteId: "",
-                    name: "",
-                    url: "",
-                    email: "",
-                    customer_support_site: "",
-                    phone_number: "",
-                    reviews: "",
-                    max_height: "0px",
-                    show: false,
-                    hide: 'Show',
-                    logged_in: false,
-                    show_logged_in: false,
-                    modal: false,
-                    edit: true,
-                    isSure: false,
+    </div>
+    <script type="text/javascript">
+        let app = new Vue({
+            el: '#app',
+            delimiters: ['[[', ']]'],
+            data: {
+                siteId: "",
+                name: "",
+                url: "",
+                email: "",
+                customer_support_site: "",
+                phone_number: "",
+                reviews: "",
+                userName: "{{user.username}}",
+                firstName: "{{user.first_name}}",
+                lastName: "{{user.last_name}}",
+                max_height: "0px",
+                show: false,
+                hide: 'Show',
+                logged_in: false,
+                show_logged_in: false,
+                modal: false,
+                edit: true,
+                isSure: false,
+                isValid: true,
+                usrnmError: false,
+                frstnmError: false,
+                lstnmError: false,
+            },
+            methods: {
+                getSiteView: function () {
+                    console.log(this.siteId)
+                    if (this.siteId == "") {
+                        return
+                    }
+                    axios({
+                        method: 'get',
+                        url: '{% url "kvetchupapp:getSite" %}',
+                        params: {
+                            siteId: this.siteId
+                        }
+                    }).then(response => {
+                        let siteObj = response.data.site
+                        this.name = siteObj.name
+                        this.url = siteObj.url
+                        this.email = siteObj.email
+                        this.phone_number = siteObj.phone_number
+                        this.reviews = siteObj.reviews
+                    })
                 },
-                methods: {
-                    getSiteView: function () {
-                        console.log(this.siteId)
-                        if (this.siteId == "") {
+                showHide: function () {
+                    if (this.show) {
+                        this.max_height = "0px"
+                        this.show = false
+                    } else {
+                        this.max_height = "null"
+                        this.show = true
+                    }
+                },
+                notLoggedIn: function () {
+                    if (this.logged_in) {
+                        return
+                    } else {
+                        this.show_logged_in = true
+                    }
+                    
+                },
+                showModal: function () {
+                    this.modal = true
+                },
+                displayAdditional: function () {
+                    if (this.hide == 'Hide') {
+                        this.hide = 'Show'
+                    } else {
+                        this.hide = 'Hide'
+                    }
+                },
+                editFunction: function () {
+                    if (this.edit){
+                        this.edit = false
+                    } else {
+                        this.edit = true
+                    }
+                },
+                checkValues: function () {
+                    this.checkUsrNm()
+                    this.checkFrstNm()
+                    this.checkLstNm()
+
+                    if (this.usrnmError || this.frstnmError || this.lstnmError) {
+                        this.isValid = false
+                        return 
+                    }
+
+
+                    if (this.isSure) {
+                        this.isSure = false
+                    } else {
+                        this.isSure = true
+                    }
+                },
+                checkUsrNm: function() {
+                    let acceptable_str = "@.+-_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+
+                    for (let i = 0; i < this.userName.length; ++i) {
+                        if (!(acceptable_str.includes(this.userName[i]))) {
+
+                            this.usrnmError = true
                             return
-                        }
-                        axios({
-                            method: 'get',
-                            url: '{% url "kvetchupapp:getSite" %}',
-                            params: {
-                                siteId: this.siteId
-                            }
-                        }).then(response => {
-                            let siteObj = response.data.site
-                            this.name = siteObj.name
-                            this.url = siteObj.url
-                            this.email = siteObj.email
-                            this.phone_number = siteObj.phone_number
-                            this.reviews = siteObj.reviews
-                        })
-                    },
-                    showHide: function () {
-                        if (this.show) {
-                            this.max_height = "0px"
-                            this.show = false
-                        } else {
-                            this.max_height = "null"
-                            this.show = true
-                        }
-                    },
-                    notLoggedIn: function () {
-                        if (this.logged_in) {
-                            return
-                        } else {
-                            this.show_logged_in = true
-                        }
-                        
-                    },
-                    showModal: function () {
-                        this.modal = true
-                    },
-                    displayAdditional: function () {
-                        if (this.hide == 'Hide') {
-                            this.hide = 'Show'
-                        } else {
-                            this.hide = 'Hide'
-                        }
-                    },
-                    editFunction: function () {
-                        if (this.edit){
-                            this.edit = false
-                        } else {
-                            this.edit = true
-                        }
-                    },
-                    submitModal: function () {
-                        if (this.isSure) {
-                            this.isSure = false
-                        } else {
-                            this.isSure = true
                         }
                     }
+                },
+                checkFrstNm: function () {
+                    let acceptable_str = "@.+-_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+
+                    for (let i = 0; i < this.firstName.length; ++i) {
+                        if (!(acceptable_str.includes(this.firstName[i]))) {
+
+                            this.frstnmError = true
+                            return
+                        }
+                    }
+                },
+                checkLstNm: function() {
+                    let acceptable_str = "@.+-_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+
+                    for (let i = 0; i < this.lastName.length; ++i) {
+                        if (!(acceptable_str.includes(this.lastName[i]))) {
+
+                            this.lstnmError = true
+                            return
+                        }
+                    }
+                },
+                resetValid: function () {
+                    if (this.isValid) {
+                        this.isValid = false
+                    } else {
+                        this.isValid = true
+                    }
+                },
+                resetisSure: function () {
+                    this.isSure = false
                 }
-            })
-        </script>
-    </div>
+            }
+        })
+    </script>
 </body>

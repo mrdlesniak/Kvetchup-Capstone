@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonRespons
 from . import models
 import json
 import random
+import string
 
 # Create your views here.
 def index(request):
@@ -71,31 +72,38 @@ def new_review(request):
     site = models.Site.objects.get(id=site_id)
     review = models.Review(review=review_text, user=user, site=site )
     review.save()
-    print(review)
-    print()
-    print()
     
     return HttpResponseRedirect(reverse('kvetchupapp:ratings') + '?message=True')
 
 @login_required
 def profile(request):
-    return render(request, 'kvetchupapp/profile.html')
+    message = request.GET.get('message', '')
+    return render(request, 'kvetchupapp/profile.html', {'message':message})
 
 @login_required
 def edit(request):
     #get user 
     #set each value of the user instance to the new values from the edit. 
     #save
+    message = "True"
+
+    context = {
+        'message': message
+    }
     user = request.user
     username = request.POST['user_name']
     first_name = request.POST['first_name']
     last_name = request.POST['last_name']
-    email = request.POST['email']
 
-    user.username = username
-    user.first_name = first_name
-    user.last_name = last_name
-    user.email = email
+    if models.User.objects.filter(username=username).exists() and user.username != username:
+        return HttpResponseRedirect(reverse('kvetchupapp:profile') + '?message=exists')
+    if username:
+        user.username = username
+    if first_name:
+        user.first_name = first_name
+    if last_name:
+        user.last_name = last_name
+    
     user.save()
 
     return HttpResponseRedirect(reverse('kvetchupapp:profile') + '?message=True') 

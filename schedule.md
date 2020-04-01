@@ -66,3 +66,16 @@
     reviews connected to site and user
     modal appears to notify user of successful submission
     reviews ordered by date, most recent first
+03/30/20 - 
+    user profile set up
+        gives basic info and can be edited
+        has vue.js to open a modal upon submit
+            the modal is within the form so that has the real submit button in it
+        modal to inform you of a successful edit
+    reworked css for login and register page
+        expanded static css to include them as well 
+        cleaned up appearance of input fields
+03/31/20 - 
+    editing user page
+    removing bugs
+    preventing uesr inputs that will lead to errors

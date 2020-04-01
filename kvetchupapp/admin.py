@@ -5,4 +5,4 @@ from .models import Site, Review, User
 # Register your models here.
 admin.site.register(Site)
 admin.site.register(Review)
-admin.site.register(User, UserAdmin)
+# admin.site.register(User, UserAdmin)
