@@ -76,6 +76,16 @@
         expanded static css to include them as well 
         cleaned up appearance of input fields
 03/31/20 - 
-    editing user page
-    removing bugs
-    preventing uesr inputs that will lead to errors
+    edited user page
+    removed bugs
+    prevented uesr inputs that will lead to errors
+    fixed and improved notification for invalid input in 
+04/01/20 -
+    allowed users to view reviews they've left.
+    allowed users to edit reviews they've left
+        refactored to allow users to edit specific reviews while leaving others alone
+04/02/20 - 
+    finished edit and delete views
+        edit uses form submission
+        delete uses separate form submission through a modal 
+    wrote 'about' section

@@ -21,9 +21,9 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=200)),
                 ('url', models.URLField()),
-                ('email', models.EmailField(blank=True, default='', max_length=254)),
-                ('customer_support_page', models.URLField(blank=True, default='')),
                 ('phone_number', models.CharField(default='xxx-xxx-xxxx', max_length=200)),
+                ('customer_support_page', models.URLField(blank=True, default='')),
+                ('email', models.EmailField(blank=True, default='', max_length=254)),
             ],
             options={
                 'ordering': ['name'],

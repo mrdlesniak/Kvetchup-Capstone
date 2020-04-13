@@ -17,6 +17,8 @@ class Site(models.Model):
     #users can have many reviews to many sites.
     #reviews can have only one user and only one site. 
 
+
+
     class Meta:
         ordering = ['name']
 

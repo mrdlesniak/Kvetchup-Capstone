@@ -15,7 +15,7 @@
         <select v-model="siteId" id="sites_drop_down">
             <option disabled value="Hello" selected>Choose a Site</option>
             {% for site in sites %}
-                <option value="{{site.id}}" v-model="site">{{site.name}}</option>
+                <option value="{{site.id}}" >{{site.name}}</option>
             {% endfor %}
         </select>
         <button v-on:click="getSiteView" class="rage">Select</button>
@@ -38,7 +38,7 @@
         </div>
         {% endif %}
         <br>
-        <h3>Reviews:</h3>
+        
         
         <div v-if="name && reviews">
             <div v-for="review in reviews">

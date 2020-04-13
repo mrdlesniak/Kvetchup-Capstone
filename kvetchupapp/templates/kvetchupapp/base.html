@@ -27,7 +27,7 @@
                     <div class="ham_line"></div>
                 </div>
                 <div class="title">
-                    <h1>Kvetchup</h1>
+                    <h1><a href="{% url 'kvetchupapp:index' %}" class="h1a"> Kvetchup</a></h1>
                     <span class="subtitle">For when you need to up your kvetching game.</span>
                 </div>
                 <div class="login_logout">
@@ -52,7 +52,7 @@
                     <a class="tablinks" href="{% url 'kvetchupapp:index' %}">Home</a>
                     <a class="tablinks" href="{% url 'kvetchupapp:profile' %}">Profile</a>
                     <a class="tablinks" href="{% url 'kvetchupapp:ratings' %}">Reviews</a>
-                    <a class="tablinks" href="">About</a>
+                    <a class="tablinks" href="{% url 'kvetchupapp:about' %}">About</a>
                 </div>
             </transition>
             {% block content %}
@@ -76,7 +76,9 @@
                 email: "",
                 customer_support_site: "",
                 phone_number: "",
+                review: "",
                 reviews: "",
+                reviewNum: "",
                 userName: "{{user.username}}",
                 firstName: "{{user.first_name}}",
                 lastName: "{{user.last_name}}",
@@ -86,8 +88,10 @@
                 logged_in: false,
                 show_logged_in: false,
                 modal: false,
-                edit: true,
+                edit_user: true,
                 isSure: false,
+                isSureReview: false,
+                isSureDelete: false,
                 isValid: true,
                 usrnmError: false,
                 frstnmError: false,
@@ -95,7 +99,6 @@
             },
             methods: {
                 getSiteView: function () {
-                    console.log(this.siteId)
                     if (this.siteId == "") {
                         return
                     }
@@ -141,14 +144,18 @@
                         this.hide = 'Hide'
                     }
                 },
-                editFunction: function () {
-                    if (this.edit){
-                        this.edit = false
+                editUserFunction: function () {
+                    if (this.edit_user){
+                        this.edit_user = false
                     } else {
-                        this.edit = true
+                        this.edit_user = true
                     }
                 },
                 checkValues: function () {
+                    this.usrnmError = false
+                    this.frstnmError = false
+                    this.lstnmError = false
+
                     this.checkUsrNm()
                     this.checkFrstNm()
                     this.checkLstNm()
@@ -165,7 +172,8 @@
                         this.isSure = true
                     }
                 },
-                checkUsrNm: function() {
+                checkUsrNm: function () {
+                    
                     let acceptable_str = "@.+-_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
 
                     for (let i = 0; i < this.userName.length; ++i) {
@@ -198,7 +206,22 @@
                         }
                     }
                 },
+                checkReview: function () {
+                    if (this.isSureReview) {
+                        this.isSureReview = false
+                    } else {
+                        this.isSureReview = true
+                    }
+                },
+                showDeleteModal: function () {
+                    if (this.isSureDelete == false) {
+                        this.isSureDelete = true
+                    } else {
+                        this.isSureDelete = false
+                    }
+                },
                 resetValid: function () {
+                    
                     if (this.isValid) {
                         this.isValid = false
                     } else {
@@ -207,7 +230,13 @@
                 },
                 resetisSure: function () {
                     this.isSure = false
-                }
+                },
+                resetisSureReview: function () {
+                    this.isSureReview = false
+                },
+                resetisSureDelete: function () {
+                    this.isSureDelete = false
+                },
             }
         })
     </script>

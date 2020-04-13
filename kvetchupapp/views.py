@@ -40,7 +40,16 @@ def getSite(request):
         "phone_number": site.phone_number,
         "reviews":  queryset_reviews,
         }
+
     return JsonResponse({"site":data})
+
+def formatted_phone(phone_number):
+    formatted_num = ""
+    for i in range(len(phone_number)):
+        formatted_num += phone_number[i]
+        if i == 2 or i == 5:
+            formatted_num += "-"
+    return formatted_num
 
 def ratings(request):
     sites = models.Site.objects.order_by('name')
@@ -49,6 +58,9 @@ def ratings(request):
         "sites": sites,
         "message": message,
     }
+    for site in sites:
+        print(site.reviews)
+        break
     return render(request, 'kvetchupapp/ratings.html', context) 
 
 @login_required
@@ -107,3 +119,27 @@ def edit(request):
     user.save()
 
     return HttpResponseRedirect(reverse('kvetchupapp:profile') + '?message=True') 
+
+@login_required
+def edit_review(request): 
+    new_review_txt = request.POST['review']
+    review_id = request.POST['review_id']
+    review_obj = models.Review.objects.get(id=review_id)
+    review_obj.review = new_review_txt
+    review_obj.save()
+    print(review_obj.review)
+
+    return HttpResponseRedirect(reverse('kvetchupapp:profile') + '?message=True') 
+
+@login_required
+def delete_review(request):
+
+    review_id = request.POST['review_id']
+    print("review_id" + review_id + ".")
+    review = models.Review.objects.get(id=review_id)
+    review.delete()
+
+    return HttpResponseRedirect(reverse('kvetchupapp:profile') + '?message=deleted')
+
+def about(request):
+    return render(request, 'kvetchupapp/about.html')

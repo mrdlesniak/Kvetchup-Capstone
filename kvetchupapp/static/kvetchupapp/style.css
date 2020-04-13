@@ -73,6 +73,10 @@ header{
     text-align: center;
 }
 
+.h1a {
+    text-decoration: none;
+    color: #FFD830;
+}
 
 h1{
     font-size: 10vw;
@@ -209,7 +213,7 @@ input {
 }
 
 footer{
-    padding: 35px 0 0 20px;
+    padding: 35px 0 35px 20px;
     background-color: #1114B3;
     color: #FFD830;
     justify-content: center;
@@ -304,6 +308,14 @@ button:active {
     color: red;
 }
 
+.about{
+    text-indent: 50px;
+}
+
+.ceo{
+    padding: 0 0 20px 0;
+}
+
 @media only screen and (min-width: 768px) {
     .ham_line {
         width: 35px;
@@ -318,8 +330,6 @@ button:active {
     h1{font-size:6vw;}
     .subtitle{font-size:1.5vw;}
     body{font-size: 30px;}
-    button{width:auto;}
-    .rage{margin: 10px;}
     #sites_drop_down{
         width: auto;
         margin: 5px 0 0 0;
@@ -329,10 +339,14 @@ button:active {
     .select_section{
         display: flex;
         flex-direction: row;
+        padding-bottom: 20px;
     }
     .instruction{font-size: 30px;}
     footer{font-size:20px;}
     .date{font-size: 25px;}
+    /* buttons */
+    button{width:auto;}
+    .rage{margin: 10px;}
     .edit_buttons{
         display: flex;
         flex-direction: row;
@@ -343,6 +357,8 @@ button:active {
         justify-content: center;
     }
     #cancel_edit{margin: 10px 0 10px 10px;}
-
+    .delete{margin: 10px 0 10px 5px;}
+    .review_edit{margin: 10px 0 10px 5px;}
+    /*  */
     input {font-size: 20px;}
 }
